@@ -49,6 +49,10 @@ extension JNMentionTextView: JNMentionPickerViewControllerDelegate {
             
             // Trigger text did change
             self.textViewDidChange(self)
+            
+            //updating List
+            self.chipListView.dataList = []
+            self.chipListView.reloadData()
         }
     }
 }

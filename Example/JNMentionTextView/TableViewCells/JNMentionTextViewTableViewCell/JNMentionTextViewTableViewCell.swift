@@ -183,7 +183,7 @@ extension JNMentionTextViewTableViewCell: JNMentionTextViewDelegate {
     func yForTextView() -> CGFloat {
         let height = UIApplication.shared.statusBarFrame.size.height +
                     (parentViewController.navigationController?.navigationBar.frame.height ?? 0.0)
-        return textView.frame.origin.y + height
+        return height
     }
     
     /**

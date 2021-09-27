@@ -50,12 +50,15 @@ extension JNMentionTextView {
                         let point = self.convert(rect.origin, to: cell.contentView)
                         let point2 = cell.convert(point, to: table)
                         let point3 = table.convert(point2, to: viewcontroller.view)
+                        let navigationHeight = self.mentionDelegate?.yForTextView() ?? 0.0
+                        
+                        let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
                         
 
-                    if (viewcontroller.view.frame.height - KeyboardService.keyboardHeight()) - rect.origin.y >= 220 + 35 {
+                    if (actualVisibleFrameHeight) - rect.origin.y >= 220 + 35 {
                         y = point3.y + 35
                         height = 200
-                    }else if (viewcontroller.view.frame.height - KeyboardService.keyboardHeight()) - rect.origin.y >= 170+35 && (viewcontroller.view.frame.height - KeyboardService.keyboardHeight()) - rect.origin.y <= 219+35 {
+                    }else if (actualVisibleFrameHeight) - rect.origin.y >= 170+35 && (actualVisibleFrameHeight) - rect.origin.y <= 219+35 {
                         y = point3.y + 35
                         height = 150
                     }else{
