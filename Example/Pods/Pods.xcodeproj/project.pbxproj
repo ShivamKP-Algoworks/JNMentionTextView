@@ -11,13 +11,9 @@
 		22EDE79ADBDF1F89C2FDF90E59A4DA99 /* Pods-JNMentionTextView_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEA2239557FAF65682127F92F474CD6 /* Pods-JNMentionTextView_Example-dummy.m */; };
 		2CDA9C2ACBEB72694FFC1E2D542460EC /* JNMentionTextView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D28C51DE663298B33FA213748C8E0732 /* JNMentionTextView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4071F59E2701A75100A98C01 /* ChipListViewTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4071F59A2701A75100A98C01 /* ChipListViewTVC.xib */; };
-		4071F59F2701A75100A98C01 /* ChipListViewTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4071F59A2701A75100A98C01 /* ChipListViewTVC.xib */; };
 		4071F5A02701A75100A98C01 /* ChipListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4071F59B2701A75100A98C01 /* ChipListView.xib */; };
-		4071F5A12701A75100A98C01 /* ChipListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4071F59B2701A75100A98C01 /* ChipListView.xib */; };
 		4071F5A22701A75100A98C01 /* ChipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F59C2701A75100A98C01 /* ChipListView.swift */; };
-		4071F5A32701A75100A98C01 /* ChipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F59C2701A75100A98C01 /* ChipListView.swift */; };
 		4071F5A42701A75100A98C01 /* ChipListViewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F59D2701A75100A98C01 /* ChipListViewTVC.swift */; };
-		4071F5A52701A75100A98C01 /* ChipListViewTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F59D2701A75100A98C01 /* ChipListViewTVC.swift */; };
 		4071F5A72701AB2200A98C01 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F5A62701AB2200A98C01 /* KeyboardService.swift */; };
 		4071F5A82701AB2200A98C01 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4071F5A62701AB2200A98C01 /* KeyboardService.swift */; };
 		4828A54D22B7B834007E5A60 /* IDETemplateMacros.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4828A54C22B7B834007E5A60 /* IDETemplateMacros.plist */; };
@@ -408,8 +404,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4071F5A12701A75100A98C01 /* ChipListView.xib in Resources */,
-				4071F59F2701A75100A98C01 /* ChipListViewTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,8 +435,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4071F5A52701A75100A98C01 /* ChipListViewTVC.swift in Sources */,
-				4071F5A32701A75100A98C01 /* ChipListView.swift in Sources */,
 				4071F5A82701AB2200A98C01 /* KeyboardService.swift in Sources */,
 				22EDE79ADBDF1F89C2FDF90E59A4DA99 /* Pods-JNMentionTextView_Example-dummy.m in Sources */,
 			);

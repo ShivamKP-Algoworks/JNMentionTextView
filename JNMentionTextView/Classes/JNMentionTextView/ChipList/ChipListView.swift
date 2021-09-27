@@ -7,6 +7,16 @@ class ChipListView: UIView {
     @IBOutlet weak var viewChipList: UIView!
     @IBOutlet weak var tableViewChipList: UITableView!
     
+    /// Options
+    var options: JNMentionPickerViewOptions = JNMentionPickerViewOptions(viewPositionMode: JNMentionPickerViewPositionwMode.automatic)
+    
+    /// Table View
+    var dataList: [JNMentionPickable] = []
+    
+    /// Delegate
+    weak var delegate: JNMentionPickerViewControllerDelegate?
+
+    
     //MARK:- Initialization methods
     override init(frame: CGRect){ // for using view in code
         super.init(frame: frame)
@@ -41,12 +51,21 @@ class ChipListView: UIView {
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "ChipListView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
       }
+    
+    /**
+     Reload Data
+     */
+    func reloadData() {
+        tableViewChipList.dataSource = self
+        tableViewChipList.delegate = self
+        tableViewChipList.reloadData()
+    }
 }
 
 extension ChipListView: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        self.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,7 +73,7 @@ extension ChipListView: UITableViewDataSource, UITableViewDelegate{
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         cell.selectedBackgroundView = backgroundView
-        cell.lblChipTitle.text = "index-\(indexPath.row+1)"
+        cell.lblChipTitle.text = self.dataList[indexPath.row].getPickableTitle()
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -62,6 +81,8 @@ extension ChipListView: UITableViewDataSource, UITableViewDelegate{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         debugPrint("selected row is \(indexPath.row+1)")
+        // did select item
+        self.delegate?.jnMentionPickerViewController(didSelectItemAt: indexPath)
     }
     
 }

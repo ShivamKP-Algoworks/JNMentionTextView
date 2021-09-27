@@ -34,10 +34,11 @@ extension JNMentionTextView: JNMentionPickerViewControllerDelegate {
      */
     func jnMentionPickerViewController(didSelectItemAt indexPath: IndexPath) {
         
-        if let _pickerViewController =  self.pickerViewController, _pickerViewController.dataList.count > indexPath.row {
-            
+//        if let _pickerViewController =  self.pickerViewController, _pickerViewController.dataList.count > indexPath.row {
+        if  self.chipListView.dataList.count > indexPath.row {
+
             // selected item & range
-            let selectedItem = _pickerViewController.dataList[indexPath.row]
+            let selectedItem = self.chipListView.dataList[indexPath.row]
             
             // selected location
             guard let selectedRange = selectedTextRange else { return }

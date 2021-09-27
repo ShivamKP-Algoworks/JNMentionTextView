@@ -37,7 +37,18 @@ class JNMentionTableViewController: UIViewController {
         self.tableView.separatorStyle = .none
         
         addNecessaryObservers()
+        //adding tap gesture for removing the chip list view when user tap outside the chip view
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                 action: #selector(removeChipListViewWhenTapOutside))
+        tap.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tap)
         
+    }
+    //removing the chip list view when user tap outside the chip view
+    @objc private func removeChipListViewWhenTapOutside() {
+        if let viewWithTag = self.view.viewWithTag(11011){
+            viewWithTag.removeFromSuperview()
+        }
     }
     
     

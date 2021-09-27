@@ -47,6 +47,7 @@ public class JNMentionTextView: UITextView {
 
     /// Picker View Controller
     var pickerViewController: JNMentionPickerViewController?
+    var chipListView = ChipListView()
 
     /// Options
     var options: JNMentionPickerViewOptions!
@@ -115,6 +116,7 @@ public class JNMentionTextView: UITextView {
         self.selectedSymbolAttributes = [:]
         self.searchString = ""
         self.pickerViewController = JNMentionPickerViewController()
+        self.chipListView.tag = 11011
         self.delegate = self
     }
     
@@ -205,7 +207,7 @@ public class JNMentionTextView: UITextView {
     func pickerViewRetrieveData() {
         
         // Show Loading Indicator View
-        self.pickerViewController?.showLoadingIndicatorView()
+//        self.pickerViewController?.showLoadingIndicatorView()
         
         // Data
         self.mentionDelegate?.jnMentionTextView(retrieveDataFor: self.selectedSymbol, using: self.searchString, compliation: { [weak self] (results) in
@@ -214,14 +216,14 @@ public class JNMentionTextView: UITextView {
             guard let strongSelf = self else { return }
             
             // Set Data
-            strongSelf.pickerViewController?.dataList = results
+            strongSelf.chipListView.dataList = results
 
             if results.isEmpty {
                 strongSelf.endMentionProcess()
             }
             
             // Reload Data
-            strongSelf.pickerViewController?.reloadData()
+            strongSelf.chipListView.reloadData()
         })
     }
     

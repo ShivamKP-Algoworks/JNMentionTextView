@@ -15,14 +15,14 @@ extension JNMentionTextView {
      */
     func startMentionProcess() {
         
-        //        guard let _pickerViewController = self.pickerViewController else {
-        //            return
-        //        }
-        //
-        //        _pickerViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-        //        _pickerViewController.preferredContentSize = CGSize(width: self.frame.width, height: self.mentionDelegate?.heightForPickerView() ?? 0.0)
-        //        _pickerViewController.options = self.options
-        //        _pickerViewController.delegate = self
+//                guard let _pickerViewController = self.pickerViewController else {
+//                    return
+//                }
+//
+//                _pickerViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+//                _pickerViewController.preferredContentSize = CGSize(width: self.frame.width, height: self.mentionDelegate?.heightForPickerView() ?? 0.0)
+//                _pickerViewController.options = self.options
+//                _pickerViewController.delegate = self
         //
         //        let popoverPresentationController = _pickerViewController.popoverPresentationController
         //        popoverPresentationController?.delegate = self
@@ -38,6 +38,7 @@ extension JNMentionTextView {
         //            popoverPresentationController?.permittedArrowDirections = [.up, .down]
         //        }
         //
+        
                 if let viewcontroller = self.mentionDelegate?.sourceViewControllerForPickerView() {
                     if  let cell = self.mentionDelegate?.objectOfTableviewCell(), let table = self.mentionDelegate?.objectForTableview() {
 
@@ -61,8 +62,17 @@ extension JNMentionTextView {
                         y = point3.y - 35 - 200
                         height = 200
                     }
-                    let chipListView =  ChipListView(frame: CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height))
-                    viewcontroller.view.addSubview(chipListView)
+                        self.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)
+                        self.chipListView.options = self.options
+                        self.chipListView.delegate = self
+                        viewcontroller.view.addSubview(self.chipListView)
+                        viewcontroller.view.layoutSubviews()
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                            // Retrieve Picker Data
+                            self.pickerViewRetrieveData()
+                        }
+                  
+
                     
         //            let popoverPresentationController = _pickerViewController.popoverPresentationController
         //            popoverPresentationController?.sourceRect = rect
@@ -87,18 +97,19 @@ extension JNMentionTextView {
      */
     func endMentionProcess(animated: Bool = true, completion: (() -> ())? = nil) {
         
-        if let pickerView = self.pickerViewController, self.isInMentionProcess() {
-            pickerView.dismiss(animated: animated, completion: {
-                
+//        if let pickerView = self.pickerViewController, self.isInMentionProcess() {
+        if  self.isInMentionProcess() {
+            if let viewcontroller = self.mentionDelegate?.sourceViewControllerForPickerView() {
+                if let viewWithTag = viewcontroller.view.viewWithTag(11011){
+                    viewWithTag.removeFromSuperview()
+                }
                 self.searchString = ""
                 self.selectedSymbol = ""
                 self.selectedSymbolLocation = 0
                 self.selectedSymbolAttributes = [:]
-                
                 completion?()
-            })
+            }
         } else {
-            
             completion?()
         }
     }
