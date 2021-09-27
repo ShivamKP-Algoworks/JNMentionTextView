@@ -132,7 +132,17 @@ class JNMentionViewController: UIViewController {
 
 /// JNMentionTextViewDelegate
 extension JNMentionViewController: JNMentionTextViewDelegate {
+    func objectForTableview() -> UITableView? {
+        return nil
+    }
     
+    func objectOfTableviewCell() -> UITableViewCell {
+        UITableViewCell()
+    }
+    
+    func yForTextView() -> CGFloat {
+        return 0.0
+    }
     /**
      height for picker view
      - Returns: picker view height.

@@ -26,6 +26,14 @@ class JNMentionTextViewTableViewCell: UITableViewCell {
      */
     override func awakeFromNib() {
         super.awakeFromNib()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.backgroundColor = .clear
+        textView.keyboardType = .asciiCapable
+        textView.allowsEditingTextAttributes = true
+        textView.isScrollEnabled = false
+        
+        textView.becomeFirstResponder()
         
         // Set Selection Style
         self.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -35,8 +43,8 @@ class JNMentionTextViewTableViewCell: UITableViewCell {
         self.textView.font = UIFont.systemFont(ofSize: 17.0)
         
         // set text view mention replacements
-        self.textView.mentionReplacements = ["@": [NSAttributedString.Key.foregroundColor: UIColor.blue,
-                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17.0)], "#": [NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17.0)]]
+        self.textView.mentionReplacements = ["+": [NSAttributedString.Key.foregroundColor: UIColor.black,
+                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0), NSAttributedString.Key.backgroundColor: UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)]]
         
         // init options
         let options = JNMentionPickerViewOptions(viewPositionMode: JNMentionPickerViewPositionwMode.automatic)
@@ -69,7 +77,7 @@ class JNMentionTextViewTableViewCell: UITableViewCell {
                               imageName: "tom_cruise")
         
         // set data
-        self.data = ["@": [firstUser, secondUser, thirdUser], "#": [fourthUser, fifthUser]]
+        self.data = ["+": [firstUser, secondUser, thirdUser, fourthUser, fifthUser]]
         
         // etup text view
         self.textView.returnKeyType = .done
@@ -159,7 +167,12 @@ extension JNMentionTextViewTableViewCell: JNMentionTextViewDelegate {
     func sourceViewControllerForPickerView() -> UIViewController {
         return self.parentViewController
     }
-    
+    func objectOfTableviewCell() -> UITableViewCell{
+        return self
+    }
+    func objectForTableview() -> UITableView? {
+        return self.tableView
+    }
     /**
      height for picker view
      - Returns: picker view height.
@@ -167,12 +180,47 @@ extension JNMentionTextViewTableViewCell: JNMentionTextViewDelegate {
     func heightForPickerView() -> CGFloat {
         return 200.0
     }
+    func yForTextView() -> CGFloat {
+        let height = UIApplication.shared.statusBarFrame.size.height +
+                    (parentViewController.navigationController?.navigationBar.frame.height ?? 0.0)
+        return textView.frame.origin.y + height
+    }
     
     /**
      Should Begin Editing
      */
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        (self.superview as! UITableView).scrollToRow(at: IndexPath(row: 5, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        (self.superview as! UITableView).scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
         return true
+    }
+    func textViewDidChange(_ textView: UITextView) {
+//        let size = textView.bounds.size
+//        let newSize = textView.sizeThatFits(CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
+        
+        // Resize the cell only when cell's size is changed
+//        if size.height != newSize.height {
+//            UIView.setAnimationsEnabled(false)
+        DispatchQueue.main.async{
+            self.tableView?.beginUpdates()
+            self.tableView?.endUpdates()
+        }
+//            UIView.setAnimationsEnabled(true)
+//        }
+        if let thisIndexPath = self.tableView?.indexPath(for: self) {
+            self.tableView?.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
+        }
+    }
+}
+extension UITableViewCell {
+    /// Search up the view hierarchy of the table view cell to find the containing table view
+    var tableView: UITableView? {
+        get {
+            var table: UIView? = superview
+            while !(table is UITableView) && table != nil {
+                table = table?.superview
+            }
+
+            return table as? UITableView
+        }
     }
 }

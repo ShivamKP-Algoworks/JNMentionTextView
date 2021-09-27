@@ -108,7 +108,17 @@ class JNMentionCustomCellViewController: UIViewController {
 
 /// JNMentionTextViewDelegate
 extension JNMentionCustomCellViewController: JNMentionTextViewDelegate {
-
+    func objectForTableview() -> UITableView? {
+        return nil
+    }
+    
+    func objectOfTableviewCell() -> UITableViewCell {
+        UITableViewCell()
+    }
+    
+    func yForTextView() -> CGFloat {
+        return 0.0
+    }
     /**
      Frame at
      - Parameter indexPath: IndexPath.

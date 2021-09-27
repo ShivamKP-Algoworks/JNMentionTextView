@@ -64,7 +64,7 @@ public class JNMentionTextView: UITextView {
     var selectedSymbolAttributes: [NSAttributedString.Key : Any]!
     
     /// Normal Attributes
-    public var normalAttributes: [NSAttributedString.Key: Any] = [:]
+    public var normalAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.black,NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0)]
     
     /// Mention Replacements
     public var mentionReplacements: [String: [NSAttributedString.Key : Any]] = [:]
@@ -169,7 +169,17 @@ public class JNMentionTextView: UITextView {
      - Returns Bool: Bool value to indicate if the mention is in filter process.
      */
     func isInMentionProcess() -> Bool {
-        return ((self.pickerViewController?.viewIfLoaded) != nil) && self.pickerViewController?.view.window != nil
+        var isPopPresented = false
+        if let viewcontroller = self.mentionDelegate?.sourceViewControllerForPickerView() {
+            viewcontroller.view.subviews.forEach{
+                if $0 is ChipListView {
+                    isPopPresented = true
+                    return
+                }
+            }
+        }
+        return isPopPresented
+//        return ((self.pickerViewController?.viewIfLoaded) != nil) && self.pickerViewController?.view.window != nil
     }
     
     /**

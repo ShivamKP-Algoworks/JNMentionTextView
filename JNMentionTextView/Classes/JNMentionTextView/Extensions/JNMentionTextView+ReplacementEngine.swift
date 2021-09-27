@@ -30,7 +30,7 @@ extension JNMentionTextView {
         updatedAttributes?[JNMentionTextView.JNMentionAttributeName] = mentionItem
         
         // create mention attributed string with item title and symbol attributes
-        let mentionAttributedString = NSMutableAttributedString(attributedString: NSAttributedString(string: item.getPickableTitle(), attributes: updatedAttributes))
+        let mentionAttributedString = NSMutableAttributedString(attributedString: NSAttributedString(string: " + \(item.getPickableTitle()) ", attributes: updatedAttributes))
         
         // Check if the next char after the selected loaction has space then no need to add space
         let nextCharLoaction = selectedLocation
@@ -49,13 +49,13 @@ extension JNMentionTextView {
         self.textStorage.replaceCharacters(in: replacementRange, with: mentionAttributedString)
         
         // set normal attributes after selection
-        let maxRange = replacementRange.location + item.getPickableTitle().count
+        let maxRange = replacementRange.location + " + \(item.getPickableTitle()) ".count
         if maxRange < self.textStorage.length {
             self.textStorage.addAttributes(self.normalAttributes, range: NSMakeRange(maxRange, 1))
         }
 
         // move cursor to the end of replacement
-        self.moveCursor(to: replacementRange.location + item.getPickableTitle().count + 1, completion: {
+        self.moveCursor(to: replacementRange.location + " + \(item.getPickableTitle()) ".count + 1, completion: {
             self.endMentionProcess()
             
             // empty the search string

@@ -47,12 +47,15 @@ public protocol JNMentionTextViewDelegate: UITextViewDelegate {
      - Returns: the super view for the picker view.
      */
     func sourceViewControllerForPickerView() -> UIViewController
-    
+    func objectOfTableviewCell() -> UITableViewCell
+    func objectForTableview() -> UITableView?
+
     /**
      height for picker view
      - Returns: picker view height.
      */
     func heightForPickerView() -> CGFloat
+    func yForTextView() -> CGFloat
 }
 
 

@@ -81,8 +81,9 @@ extension JNMentionTextView: UITextViewDelegate {
                         cursorPosition > rangeAttributes.location && (text.isEmpty ? cursorPosition - 1 : cursorPosition) <= rangeAttributes.location + rangeAttributes.length {
                         
                         // init replacement string
-                        let replacementString = mentionedItem.symbol + mentionedItem.item.getPickableTitle()
-                        
+                        //let replacementString = mentionedItem.symbol + mentionedItem.item.getPickableTitle()
+                        let replacementString = ""
+
                         // replace the mentioned item with (symbol with mentioned title)
                         self.textStorage.replaceCharacters(in: rangeAttributes, with: NSAttributedString(string: replacementString, attributes: self.normalAttributes))
                         
@@ -90,13 +91,13 @@ extension JNMentionTextView: UITextViewDelegate {
                         self.moveCursor(to: rangeAttributes.location + replacementString.count)
                         
                         // set selected symbol information
-                        self.selectedSymbol = mentionedItem.symbol
-                        self.selectedSymbolLocation = rangeAttributes.location
-                        self.selectedSymbolAttributes = attributes
-                        
-                        // start mention process with search string for tem title
-                        self.searchString = mentionedItem.item.getPickableTitle()
-                        self.startMentionProcess()
+//                        self.selectedSymbol = mentionedItem.symbol
+//                        self.selectedSymbolLocation = rangeAttributes.location
+//                        self.selectedSymbolAttributes = attributes
+//                        
+//                        // start mention process with search string for tem title
+//                        self.searchString = mentionedItem.item.getPickableTitle()
+//                        self.startMentionProcess()
                         
                         // skip this change in text
                         shouldChangeText = false
