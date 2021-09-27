@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
     s.platform                  = :ios, "9.0"
     s.swift_versions            = ['4.0', '4.2', '5.0']
     s.source                    = { :git => "https://github.com/JNDisrupter/JNMentionTextView.git", :tag => "#{s.version}" }
-    s.source_files              = "JNMentionTextView/**/*.{swift}"
+    s.source_files              = "JNMentionTextView/**/*.{xib,swift}"
 end
