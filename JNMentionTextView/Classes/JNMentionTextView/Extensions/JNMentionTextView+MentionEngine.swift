@@ -31,15 +31,12 @@ extension JNMentionTextView {
                 let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
                 self.becomeFirstResponder()
                 
-                if (actualVisibleFrameHeight) - point3.y >= (200 + 35) {
-                    y = point3.y + 35
-                    height = 200
-                }else if (actualVisibleFrameHeight) - point3.y >= (150+35) && (actualVisibleFrameHeight) - point3.y <= (199+35) {
+                if (actualVisibleFrameHeight) - point3.y >= (150 + 35) {
                     y = point3.y + 35
                     height = 150
-                }else{
-                    y = point3.y - 15 - 200
-                    height = 200
+                } else {
+                    y = point3.y - 15 - 150
+                    height = 150
                 }
                 self.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)
                 self.chipListView.options = self.options
