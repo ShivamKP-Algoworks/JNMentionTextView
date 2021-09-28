@@ -29,7 +29,7 @@ extension JNMentionTextView {
                 let navigationHeight = self.mentionDelegate?.yForTextView() ?? 0.0
                 
                 let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
-                
+                self.becomeFirstResponder()
                 
                 if (actualVisibleFrameHeight) - point3.y >= (200 + 35) {
                     y = point3.y + 35
