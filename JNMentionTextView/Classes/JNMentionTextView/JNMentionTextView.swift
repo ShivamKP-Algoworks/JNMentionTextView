@@ -40,7 +40,7 @@ public struct JNMentionEntity {
 }
 
 /// JNMentionTextView
-public class JNMentionTextView: UITextView {
+open class JNMentionTextView: UITextView {
     
     /// JNMentionAttributeName
     static let JNMentionAttributeName: NSAttributedString.Key = (NSString("JNMENTIONITEM")) as NSAttributedString.Key
