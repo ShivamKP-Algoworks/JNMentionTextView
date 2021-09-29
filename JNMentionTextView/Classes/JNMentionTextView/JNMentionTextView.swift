@@ -31,7 +31,7 @@ public struct JNMentionEntity {
      - Parameter item: JNMentionEntityPickable Item
      - Parameter symbol: Symbol special character
      */
-    init(item: JNMentionPickable, symbol: String) {
+   public init(item: JNMentionPickable, symbol: String) {
         
         self.item = item
         self.symbol = symbol
