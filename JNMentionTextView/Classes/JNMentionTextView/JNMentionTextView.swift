@@ -217,13 +217,61 @@ open class JNMentionTextView: UITextView {
             
             // Set Data
             strongSelf.chipListView.dataList = results
-
+            
             if results.isEmpty {
                 strongSelf.endMentionProcess()
             }
             
             // Reload Data
             strongSelf.chipListView.reloadData()
+            
+            if !results.isEmpty, let viewcontroller = strongSelf.mentionDelegate?.sourceViewControllerForPickerView(),
+               let cell = strongSelf.mentionDelegate?.objectOfTableviewCell(),
+               let table = strongSelf.mentionDelegate?.objectForTableview() {
+                
+                let position = strongSelf.position(from: strongSelf.beginningOfDocument, offset: strongSelf.selectedSymbolLocation + 1) ?? strongSelf.beginningOfDocument
+                
+                let rect: CGRect = strongSelf.caretRect(for: position)
+                var y = CGFloat()
+                var height = CGFloat()
+                let point = strongSelf.convert(rect.origin, to: cell.contentView)
+                let point2 = cell.convert(point, to: table)
+                let point3 = table.convert(point2, to: viewcontroller.view)
+                
+                let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
+                strongSelf.becomeFirstResponder()
+                if results.count >= 3{
+                    if (actualVisibleFrameHeight) - point3.y >= (150 + 35) {
+                        y = point3.y + 35
+                        height = 150
+                    } else {
+                        y = point3.y - 15 - 150
+                        height = 150
+                    }
+                }else if results.count == 2{
+                    if (actualVisibleFrameHeight) - point3.y >= (100 + 35) {
+                        y = point3.y + 35
+                        height = 100
+                    }else{
+                        y = point3.y - 15 - 100
+                        height = 100
+                    }
+                }else if results.count == 1{
+                    if (actualVisibleFrameHeight) - point3.y >= (50 + 35) {
+                        y = point3.y + 35
+                        height = 50
+                    }else{
+                        y = point3.y - 15 - 50
+                        height = 50
+                    }
+                }
+                strongSelf.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)
+                strongSelf.chipListView.options = strongSelf.options
+                strongSelf.chipListView.delegate = self
+                viewcontroller.view.addSubview(strongSelf.chipListView)
+                viewcontroller.view.layoutSubviews()
+                viewcontroller.view.layoutIfNeeded()
+            }
         })
     }
     

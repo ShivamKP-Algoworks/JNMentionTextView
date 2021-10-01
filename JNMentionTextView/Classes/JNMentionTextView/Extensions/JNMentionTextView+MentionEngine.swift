@@ -15,40 +15,40 @@ extension JNMentionTextView {
      */
     func startMentionProcess() {
         
-        if let viewcontroller = self.mentionDelegate?.sourceViewControllerForPickerView() {
-            if  let cell = self.mentionDelegate?.objectOfTableviewCell(), let table = self.mentionDelegate?.objectForTableview() {
-                
-                let position = self.position(from: self.beginningOfDocument, offset: self.selectedSymbolLocation + 1) ?? self.beginningOfDocument
-                
-                let rect: CGRect = self.caretRect(for: position)
-                var y = CGFloat()
-                var height = CGFloat()
-                let point = self.convert(rect.origin, to: cell.contentView)
-                let point2 = cell.convert(point, to: table)
-                let point3 = table.convert(point2, to: viewcontroller.view)
-                let navigationHeight = self.mentionDelegate?.yForTextView() ?? 0.0
-                
-                let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
-                self.becomeFirstResponder()
-                
-                if (actualVisibleFrameHeight) - point3.y >= (150 + 35) {
-                    y = point3.y + 35
-                    height = 150
-                } else {
-                    y = point3.y - 15 - 150
-                    height = 150
-                }
-                self.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)
-                self.chipListView.options = self.options
-                self.chipListView.delegate = self
-                viewcontroller.view.addSubview(self.chipListView)
-                viewcontroller.view.layoutSubviews()
-                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                    // Retrieve Picker Data
+//        if let viewcontroller = self.mentionDelegate?.sourceViewControllerForPickerView() {
+//            if  let cell = self.mentionDelegate?.objectOfTableviewCell(), let table = self.mentionDelegate?.objectForTableview() {
+//
+//                let position = self.position(from: self.beginningOfDocument, offset: self.selectedSymbolLocation + 1) ?? self.beginningOfDocument
+//
+//                let rect: CGRect = self.caretRect(for: position)
+//                var y = CGFloat()
+//                var height = CGFloat()
+//                let point = self.convert(rect.origin, to: cell.contentView)
+//                let point2 = cell.convert(point, to: table)
+//                let point3 = table.convert(point2, to: viewcontroller.view)
+//                let navigationHeight = self.mentionDelegate?.yForTextView() ?? 0.0
+//
+//                let actualVisibleFrameHeight = viewcontroller.view.frame.height - KeyboardService.keyboardHeight()
+//                self.becomeFirstResponder()
+//
+//                if (actualVisibleFrameHeight) - point3.y >= (150 + 35) {
+//                    y = point3.y + 35
+//                    height = 150
+//                } else {
+//                    y = point3.y - 15 - 150
+//                    height = 150
+//                }
+//                self.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)
+//                self.chipListView.options = self.options
+//                self.chipListView.delegate = self
+//                viewcontroller.view.addSubview(self.chipListView)
+//                viewcontroller.view.layoutSubviews()
+//                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+//                    // Retrieve Picker Data
                     self.pickerViewRetrieveData()
-                }
-            }
-        }
+//                }
+//            }
+//        }
         
     }
     
