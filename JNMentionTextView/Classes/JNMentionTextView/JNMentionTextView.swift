@@ -248,21 +248,14 @@ open class JNMentionTextView: UITextView {
                         y = point3.y - 15 - 150
                         height = 150
                     }
-                }else if results.count == 2{
-                    if (actualVisibleFrameHeight) - point3.y >= (100 + 35) {
+                }else{
+                    let dataHeight: CGFloat = CGFloat(results.count * 50 + 35)
+                    if (actualVisibleFrameHeight) - point3.y >= (dataHeight + 35){
                         y = point3.y + 35
-                        height = 100
+                        height = dataHeight
                     }else{
-                        y = point3.y - 15 - 100
-                        height = 100
-                    }
-                }else if results.count == 1{
-                    if (actualVisibleFrameHeight) - point3.y >= (50 + 35) {
-                        y = point3.y + 35
-                        height = 50
-                    }else{
-                        y = point3.y - 15 - 50
-                        height = 50
+                        y = point3.y - 15 - dataHeight
+                        height = dataHeight
                     }
                 }
                 strongSelf.chipListView.frame = CGRect(x: 15, y: y, width: viewcontroller.view.frame.width-30, height: height)

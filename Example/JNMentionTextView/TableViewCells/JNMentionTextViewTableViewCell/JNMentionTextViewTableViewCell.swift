@@ -26,6 +26,8 @@ class JNMentionTextViewTableViewCell: UITableViewCell {
      */
     override func awakeFromNib() {
         super.awakeFromNib()
+        textView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
+
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainer.lineFragmentPadding = 0
         textView.backgroundColor = .clear
@@ -88,6 +90,9 @@ class JNMentionTextViewTableViewCell: UITableViewCell {
         // set mention delegate
         self.textView.mentionDelegate = self
     }
+    @objc func tapDone(sender: Any) {
+          parentViewController.view.endEditing(true)
+      }
    
     
     /**
@@ -189,10 +194,12 @@ extension JNMentionTextViewTableViewCell: JNMentionTextViewDelegate {
     /**
      Should Begin Editing
      */
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        (self.superview as! UITableView).scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
-        return true
-    }
+//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+//        (self.superview as! UITableView).scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+//        return true
+//    }
+    
+    
     func textViewDidChange(_ textView: UITextView) {
 //        let size = textView.bounds.size
 //        let newSize = textView.sizeThatFits(CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
@@ -206,9 +213,9 @@ extension JNMentionTextViewTableViewCell: JNMentionTextViewDelegate {
         }
 //            UIView.setAnimationsEnabled(true)
 //        }
-        if let thisIndexPath = self.tableView?.indexPath(for: self) {
-            self.tableView?.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
-        }
+//        if let thisIndexPath = self.tableView?.indexPath(for: self) {
+//            self.tableView?.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
+//        }
     }
 }
 extension UITableViewCell {
@@ -222,5 +229,19 @@ extension UITableViewCell {
 
             return table as? UITableView
         }
+    }
+}
+extension UITextView {
+    
+    func addDoneButton(title: String, target: Any, selector: Selector) {
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: UIScreen.main.bounds.size.width,
+                                              height: 44.0))//1
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
+        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
+        toolBar.setItems([flexible, barButton], animated: false)//4
+        self.inputAccessoryView = toolBar//5
     }
 }
